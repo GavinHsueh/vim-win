@@ -1,0 +1,42 @@
+*************************************************************
+--------------------------------------------------------------
+4月8日：
+vimfiles/snippets/html.snippets文件
+	br=><br/>；
+	,,=><{}>；
+
+配置文件中:
+取消了MiniBufExplorer标签插件的使用；
+去除了Linux系统设置；
+
+
+4月9日：
+配置文件中：
+编码设置做了改动。
+
+vimfiles/snippets/html.snippets文件
+	define=>define('${1}', ${2});${3}
+	assign=>assign('${1}', ${2});${3}
+# TP框架:
+snippet M
+	$${1:m}=M("${2}");${3}
+snippet add
+	$${1:m}->add("${2:$data}");${3}
+snippet delete
+	$${1:m}->where('${2}')->delete();${3}
+snippet save
+	$${1:m}->where('${2}')->save("${3:$data}");${4}
+snippet select
+	$${1:m}->where('${2}')->select();${3}
+
+
+4月20日：
+vimfiles/snippets/html.snippets文件：
+添加了h2快捷键；
+修改了link快捷键；
+
+8月12日：
+vimfiles/snippets/添加css.snippets文件
+并设置css快捷建
+----------------------------------------------------------
+**********************************************************
