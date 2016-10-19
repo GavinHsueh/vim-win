@@ -1,30 +1,34 @@
 "************************** 快捷键设置 **************************
 "F1 : 显示帮助
 "F2 : 显隐菜单工具栏
-"F3 : 显隐taglist
-"F4 : 显隐nerdtree文档目录
+"F3 : 显隐nerdtree文档目录
+"F4 : 显隐tagbar插件
 "F5 : 打开easygrep查询工具
 "F6 : 开关SrcExpl 插件
 "F7 : 显隐MiniBufExplorer窗口
 "F8 : 打开ctages（程序被改动时，须运行一次，ctages插件才可有效)
 "F9 :
-"F10 :
+"F10 : 激活/取消 paste模式
 "F11 : windows下gvim全屏切换
-"F12: 当前窗口保存并退出
-"<C-k,j,h,l> : 插入模式下光标上下左右移动
-"<C-h,j,k,l>: 切换到上下左右的窗口中
-"<C-箭头键>: 切换到上下左右窗口中
+"F12 : 当前窗口保存并退出
 "Ctrl+N : 新建标签
 "ctrl+]: 光标便跳转到函数的定义处
 "ctrl+t: 光标返回函数调用处
 "<C-Tab>: 切换各个标签
 "W+M : 打开/关闭WinManager插件（文档目录和taglist组合窗口）
 "t+b : 显隐tagbar插件
-"ALT+q : 左右方式查看已经打开到文件（BufExplorer插件）
+"t+l : 显隐taglist插件
+"n+t : 显隐nerdtree插件
 "Ctrl+p : 一个全路径模糊文件，缓冲区，最近最多使用，... 检索插件(ctrlp.vim 插件)
-"<leader>il : 开启/关闭对齐线(indentlines)
-"<leader>ig : 开启/关闭对齐线(indentguides)
-
+"ol : 左右纵向查看已打开的文件列表
+"ul : 上下横向查看已打开的文件列表
+"Ctrl+e : emmet插件，快速写HTML代码
+"line : 开启/关闭对齐线
+",r : mark插件，标记加亮不同标签
+" -  : 开关折叠
+"<c-w+o> : 多窗口时将当前窗口最大化
+"m+字母 : 设置一个标记(a-z)
+"`+字母 : 跳转到指定标记处
 "**************************** end ********************************
 
 " =============================================================================
@@ -102,13 +106,13 @@ endif
 " 注：使用utf-8格式后，软件与程序源码、文件路径不能有中文，否则报错
 set encoding=utf-8                                    " 设置gvim内部编码，默认不更改
 set fileencoding=utf-8                                " 设置当前文件编码，可以更改，如：gbk（同cp936）
-set fileencodings=utf-8				      " 设置支持打开的文件的编码
+set fileencodings=utf-8                               " 设置支持打开的文件的编码
 
 
 " -----------------------------------------------------------------------------
 "  < 设置字体 >
 " -----------------------------------------------------------------------------
-set guifont=Consolas:h11
+set guifont=Consolas:h12
 "set guifont=YaHei_Consolas_Hybrid\ 10                " 设置字体:字号（字体名称空格用下划线代替）
 
 
@@ -117,79 +121,86 @@ set guifont=Consolas:h11
 " -----------------------------------------------------------------------------
 set fileformats=dos,mac,unix                          " 给出文件的<EOL>格式类型
 
-
 " -----------------------------------------------------------------------------
 "  < 编写文件时的配置 >
 " -----------------------------------------------------------------------------
 filetype on                                           " 启用文件类型侦测
 filetype plugin on                                    " 针对不同的文件类型加载对应的插件
 filetype plugin indent on                             " 启用缩进
+autocmd! bufwritepost _vimrc source %                 " vimrc文件修改之后自动加载。 windows。
+autocmd! bufwritepost .vimrc source %                 " vimrc文件修改之后自动加载。 linux。
+set history=400                                       " history存储长度。
 set smartindent                                       " 启用智能对齐方式
 set expandtab                                         " 将Tab键转换为空格
-set tabstop=4                                         " 设置Tab键的宽度，可以更改，如：宽度为2
-set shiftwidth=4                                      " 换行时自动缩进宽度，可更改（宽度同tabstop）
+set tabstop=2                                         " 设置Tab键的宽度，可以更改，如：宽度为2
+set shiftwidth=2                                      " 换行时自动缩进宽度，可更改（宽度同tabstop）
+autocmd FileType java,php setl shiftwidth=4
+autocmd FileType java,php setl tabstop=4
+autocmd FileType html,python,vim,javascript setlocal shiftwidth=2
+autocmd FileType html,python,vim,javascript setlocal tabstop=2
 set smarttab                                          " 指定按一次backspace就删除shiftwidth宽度
-set backspace=indent,eol,start 				" 不设定在插入状态无法用退格键和 Delete 键删除回车符
-set showmatch               					" 高亮现实匹配的括号 
-set autoindent              					" 自动对齐
-set autochdir              					" 自动切换当前目录为当前文件所在的目录
-set backupcopy=yes         					" 设置备份时的行为为覆盖
-set nowrapscan              					" 禁止在搜索到文件两端时重新搜索
-set noerrorbells            					" 关闭错误信息响铃
-set novisualbell            					" 关闭使用可视响铃代替呼叫
-set hidden                  					" 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存
-let javascript_enable_domhtmlcss=1				" 打开javascript对dom、html和css的支持
-set autoread							" 当文件在外部被修改，自动更新该文件
+set backspace=indent,eol,start                                  " 不设定在插入状态无法用退格键和 Delete 键删除回车符
+set showmatch                                                     " 高亮现实匹配的括号 
+set autoindent                                                    " 自动对齐
+set autochdir                                                     " 自动切换当前目录为当前文件所在的目录
+set backupcopy=yes                                                " 设置备份时的行为为覆盖
+set nowrapscan                                                    " 禁止在搜索到文件两端时重新搜索
+set noerrorbells                                                  " 关闭错误信息响铃
+set novisualbell                                                  " 关闭使用可视响铃代替呼叫
+set hidden                                                        " 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存
+let javascript_enable_domhtmlcss=1                            " 打开javascript对dom、html和css的支持
+set autoread                                                              " 当文件在外部被修改，自动更新该文件
 set ignorecase                                        " 搜索模式里忽略大小写
 set smartcase                                         " 如果搜索模式包含大写字符，不使用 'ignorecase' 选项，只有在输入搜索模式并且打开 'ignorecase' 选项时才会使用
-set hlsearch                					" 搜索时高亮显示被找到的文本
-set incsearch               					" 输入搜索内容时就显示搜索结果
+set hlsearch                                                      " 搜索时高亮显示被找到的文本
+set incsearch                                                     " 输入搜索内容时就显示搜索结果
 " set noincsearch                                     " 在输入要搜索的文字时，取消实时匹配
-set writebackup                             		" 保存文件前建立备份，保存成功后删除该备份
-set nobackup                                		" 设置无备份文件
-" set noswapfile                              		" 设置无临时文件
-set vb t_vb=                                		" 关闭提示音
+set writebackup                                           " 保存文件前建立备份，保存成功后删除该备份
+set nobackup                                              " 设置无备份文件
+set noswapfile                                            " 设置无临时文件
+set nowb
+set vb t_vb=                                              " 关闭提示音
+"set mouse=a                                          " 在所有的模式下面打开鼠标。
 
 " -----------------------------------------------------------------------------
 "  < 折叠设置 >
 " -----------------------------------------------------------------------------
 set foldenable                                        " 启用折叠
-"set foldmethod=indent                                 " indent 折叠方式
-set foldmethod=marker                               " marker 折叠方式
-set foldcolumn=1            					" 设置折叠区域的宽度
-setlocal foldlevel=1        					" 设置折叠层数为
+"set foldmethod=indent                                " indent 折叠方式
+set foldmethod=marker                                 " marker 折叠方式
+set foldcolumn=1                                                  " 设置折叠区域的宽度
+setlocal foldlevel=1                                              " 设置折叠层数为
 ":set foldopen=all
-":set foldclose=all          					" 设置为自动关闭折叠
-:highlight FoldColumn guibg=grey guifg=red   		" 设置折叠颜色
+":set foldclose=all                                               " 设置为自动关闭折叠
+:highlight FoldColumn guibg=grey guifg=red                " 设置折叠颜色
 " 常规模式下用空格键来开关光标行所在折叠（注：zR 展开所有折叠，zM 关闭所有折叠）
-nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
-let b:javascript_fold=1						" 打开javascript折叠
-
+nnoremap - @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+let b:javascript_fold=1                                             " 打开javascript折叠
+let php_folding=0                                     " 打开自动折叠的功能。
 
 " -----------------------------------------------------------------------------
 "  < 界面配置 >
 " -----------------------------------------------------------------------------
 syntax enable
-syntax on                   					" 自动语法高亮
-:colo torte                 					" 配色方案
+syntax on                                                         " 自动语法高亮
+:colo torte                                                       " 配色方案
 set number                                            " 显示行号
 set laststatus=2                                      " 启用状态栏信息
-set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\ 
-                            						" 设置在状态行显示的信息
+set statusline=\ %F%m%r%h%w%=\ [%{&ff}]\ [%Y]\ [%{&fileencoding}]\ [%04l,%04v][%p%%]\ [LEN=%L]
 set cmdheight=1                                       " 设置命令行的高度，默认为1
 set cursorline                                        " 突出显示当前行
 set nowrap                                            " 设置不自动换行
 set shortmess=atI                                     " 去掉欢迎界面
 set helplang=cn                                       " 中文帮助
-set ruler                  					" 打开状态栏标尺
-set magic                   					" 设置魔术
-set completeopt=longest,menu  				" 关掉智能补全时的预览窗口
+set ruler                                                         " 打开状态栏标尺
+set magic                                                         " 设置魔术
+set completeopt=longest,menu                                    " 关掉智能补全时的预览窗口
 
 " 设置 gVim 窗口初始位置及大小
 if g:isGUI
-    " au GUIEnter * simalt ~x                         " 窗口启动时自动最大化
-     winpos 100 10                                    " 指定窗口出现的位置，坐标原点在屏幕左上角
-     set lines=35 columns=120                         " 指定窗口大小，lines为高度，columns为宽度
+     au GUIEnter * simalt ~x                          " 窗口启动时自动最大化
+     winpos 300 10                                    " 指定窗口出现的位置，坐标原点在屏幕左上角
+     set lines=50 columns=150                         " 指定窗口大小，lines为高度，columns为宽度
 endif
 
 " 显示/隐藏菜单栏、工具栏、滚动条，可用 F2 切换
@@ -219,23 +230,33 @@ if (g:iswindows && g:isGUI)
     "解决consle输出乱码
     language messages zh_CN.utf-8
 endif
+" 自动保留屏幕上的内容。
+set t_ti=
+set t_te=
 
+" 自动完成。
+"autocmd FileType php          setlocal omnifunc=phpcomplete#CompletePHP
+"autocmd FileType html         setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript   setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd BufNewFile,BufRead *.conf set filetype=apache
+"autocmd BufNewFile,BufRead *.vol  set filetype=vo_base
+"autocmd BufNewFile,BufRead *todo* set filetype=vo_base
+"autocmd BufNewFile,BufRead *.lst  set filetype=vo_base
+"autocmd BufNewFile,BufRead *.tree set filetype=vo_base
+"autocmd BufNewFile,BufRead *.book set filetype=vo_base
+"imap <c-f>  <c-x><c-o>
 
 " -----------------------------------------------------------------------------
 "  < 快捷键设置 >
 " -----------------------------------------------------------------------------
-nmap <C-N> :tabnew<CR>      					" 新建标签
+nmap <C-N> :tabnew<CR>                                            " 新建标签
 nmap <F5> :Grep 
-"nmap <F9> :cw<CR>						" 打开cscope结果窗口
-nmap <F12> :exit<CR>        					" 当前窗口保存并退出
-"nmap <F10> :cs add D:\WAMP5\wamp\www\cscope.out<CR>  " 建立cscope数据库
-nmap cS :%s/\s\+$//g<CR>:noh<CR>				" 常规模式下输入 cS 清除行尾空格
-nmap cM :%s/\r$//g<CR>:noh<CR>				" 常规模式下输入 cM 清除行尾 ^M 符号
-imap <c-k> <Up>							" Ctrl + K 插入模式下光标向上移动
-imap <c-j> <Down>							" Ctrl + J 插入模式下光标向下移动
-imap <c-h> <Left>							" Ctrl + H 插入模式下光标向左移动
-imap <c-l> <Right>						" Ctrl + L 插入模式下光标向右移动
-
+nmap <F12> :exit<CR>                                              " 当前窗口保存并退出
+nmap cS :%s/\s\+$//g<CR>:noh<CR>                                " 常规模式下输入 cS 清除行尾空格
+nmap cM :%s/\r$//g<CR>:noh<CR>                                  " 常规模式下输入 cM 清除行尾 ^M 符号
+map <C-Tab> :bnext<CR>
+map <S-Tab> :bp<CR>
+map <C-S>   :w!<CR>
 
 " =============================================================================
 "                          << 以下为常用插件配置 >>
@@ -271,9 +292,7 @@ Bundle 'mattn/emmet-vim'
 Bundle 'Yggdroot/indentLine'
 Bundle 'Mark--Karkat'
 Bundle 'Shougo/neocomplcache.vim'
-Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'wesleyche/SrcExpl'
 Bundle 'tpope/vim-surround'
 Bundle 'repeat.vim'
@@ -281,25 +300,22 @@ Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
 Bundle 'taglist.vim'
 Bundle 'ZoomWin'
-Bundle 'minibufexpl.vim'
-Bundle 'derekmcloughlin/gvimfullscreen_win32'
 Bundle 'rking/ag.vim'
 Bundle 'ggreer/the_silver_searcher'
 Bundle 'EasyGrep'
-Bundle 'Indent-Guides'
 
 
 " -----------------------------------------------------------------------------
 "  < BufExplorer 插件配置 >
 " -----------------------------------------------------------------------------
 " 快速轻松的在缓存中切换（相当于另一种多个文件间的切换方式）
-" {{{ bufexplorer.vim Buffers切换
+"  bufexplorer.vim Buffers切换
 " \be 全屏方式查看全部打开的文件列表
 noremap <silent> <s-q> :BufExplorer<CR>
 " \bs 上下方式查看
-noremap <silent> <c-q> :BufExplorerHorizontalSplit<CR>
+noremap <silent> ul :BufExplorerHorizontalSplit<CR>
 " \bv 左右方式查看
-noremap <silent> <m-q> :BufExplorerVerticalSplit<CR>   "m是ALT键
+noremap <silent> ol :BufExplorerVerticalSplit<CR>   "m是ALT键
 
 let g:bufExplorerDefaultHelp      = 0     " 不显示默认帮助信息
 let g:bufExplorerShowRelativePath = 1     " 显示相对路径
@@ -309,7 +325,7 @@ let g:bufExplorerSplitVertical    = 1     " 垂直分割
 let g:bufExplorerSplitVertSize    = 30    " Split width
 let g:bufExplorerUseCurrentWindow = 1     " 在新窗口中打开
 autocmd BufWinEnter \[Buf\ List\] setl nonumber
-" }}}
+" 
 
 
 " -----------------------------------------------------------------------------
@@ -322,6 +338,7 @@ autocmd BufWinEnter \[Buf\ List\] setl nonumber
 "  < emmet-vim（前身为Zen coding） 插件配置 >
 " -----------------------------------------------------------------------------
 " HTML/CSS代码快速编写神器，详细帮助见 :h emmet.txt
+let g:user_emmet_expandabbr_key = '<c-e>'
 
 " -----------------------------------------------------------------------------
 "  < indentLine 插件配置 >
@@ -329,7 +346,7 @@ autocmd BufWinEnter \[Buf\ List\] setl nonumber
 " 用于显示对齐线，与 indent_guides 在显示方式上不同，根据自己喜好选择了
 " 在终端上会有屏幕刷新的问题，这个问题能解决有更好了,仅支持VIM7.3以上版本
 " 开启/关闭对齐线
-nmap <leader>il :IndentLinesToggle<CR>
+nmap line :IndentLinesToggle<CR>
 
 " 设置Gvim的对齐线样式
 if g:isGUI
@@ -345,79 +362,33 @@ let g:indentLine_color_term = 239
 
 
 " -----------------------------------------------------------------------------
-"  < Indent-Guides 插件配置 >
-" -----------------------------------------------------------------------------
-nmap <leader>ig :IndentGuidesToggle<CR>
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_guide_size = 1
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
-hi IndentGuidesOdd guibg=red ctermbg=3
-hi IndentGuidesEven guibg=green ctermbg=4
-
-
-" -----------------------------------------------------------------------------
 "  < Mark--Karkat（也就是 Mark） 插件配置 >
 " -----------------------------------------------------------------------------
 " 给不同的单词标记高亮，表明不同的变量时很有用，详细帮助见 :h mark.txt
+" m+字母来添加一个标记，`+字母跳转到指定标记处（a-z26个字母）
 
-" " -----------------------------------------------------------------------------
-" "  < MiniBufExplorer 插件配置 >
-" " -----------------------------------------------------------------------------
-" " 快速浏览和操作Buffer
-" " 主要用于同时打开多个文件并相与切换
-
-map <F7> <ESC>:TMiniBufExplorer<CR>
-let g:miniBufExplMapWindowNavVim = 1     "用<C-h,j,k,l>切换到上下左右的窗口中
-let g:miniBufExplMapWindowNavArrows = 1  "用<C-箭头键>切换到上下左右窗口中
-let g:miniBufExplMapCTabSwitchBufs = 1   "按<C-Tab>切换各个标签
-let g:miniBufExplModSelTarget = 1
-let g:miniBufExplorerMoreThanOne=50      "打开大于0个文件时出现标签
-
-" 在不使用 MiniBufExplorer 插件时也可用<C-k,j,h,l>切换到上下左右的窗口中去
-noremap <c-k> <c-w>k
-noremap <c-j> <c-w>j
-noremap <c-h> <c-w>h
-noremap <c-l> <c-w>l
 
 " -----------------------------------------------------------------------------
 "  < neocomplcache 插件配置 >
 " -----------------------------------------------------------------------------
 " 关键字补全、文件路径补全、tag补全等等，各种，非常好用，速度超快。
 let g:neocomplcache_enable_at_startup = 1     "vim 启动时启用插件
-" let g:neocomplcache_disable_auto_complete = 1 "不自动弹出补全列表
+"let g:neocomplcache_enable_quick_match = 1
+"let g:neocomplcache_disable_auto_complete = 1 "不自动弹出补全列表
 " 在弹出补全列表后用 <c-p> 或 <c-n> 进行上下选择效果比较好
 
-" -----------------------------------------------------------------------------
-"  < nerdcommenter 插件配置 >
-" -----------------------------------------------------------------------------
-" 我主要用于C/C++代码注释(其它的也行)
-" 以下为插件默认快捷键，其中的说明是以C/C++为例的，其它语言类似
-" <Leader>ci 以每行一个 /* */ 注释选中行(选中区域所在行)，再输入则取消注释
-" <Leader>cm 以一个 /* */ 注释选中行(选中区域所在行)，再输入则称重复注释
-" <Leader>cc 以每行一个 /* */ 注释选中行或区域，再输入则称重复注释
-" <Leader>cu 取消选中区域(行)的注释，选中区域(行)内至少有一个 /* */
-" <Leader>ca 在/*...*/与//这两种注释方式中切换（其它语言可能不一样了）
-" <Leader>cA 行尾注释
-let NERDSpaceDelims = 1                     "在左注释符之后，右注释符之前留有空格
 
 " -----------------------------------------------------------------------------
 "  < nerdtree 插件配置 >
 " -----------------------------------------------------------------------------
 " 有目录村结构的文件浏览插件
-nnoremap <silent> <F4> :NERDTreeToggle<CR>  "打开/关闭NERDTree
+nnoremap <silent> <F3> :NERDTreeToggle<CR>  "打开/关闭NERDTree
+nnoremap <silent> nt :NERDTreeToggle<CR>
 let NERDTreeChDirMode=2 
 let NERDTreeMouseMode=2
-let NERDTreeWinPos="right"                  "在右侧显示NERDTree窗口
+let NERDTreeWinPos="left"                   "在左侧显示NERDTree窗口
 let NERDTreeWinSize=23                      "设置NERDTree窗口的宽度
-
-
-
-" -----------------------------------------------------------------------------
-"  < powerline 插件配置 >
-" -----------------------------------------------------------------------------
-" 状态栏插件，更好的状态栏效果
-
+let NERDTreeDirArrows=0                     "nerdtree插件目录箭头 1 显示箭头  0传统+-|号
 
 
 " -----------------------------------------------------------------------------
@@ -444,10 +415,37 @@ nmap <F6> :SrcExplToggle<CR>                "打开/闭浏览窗口
 " 快速给单词/句子两边增加符号（包括html标签），缺点是不能用"."来重复命令
 " 不过 repeat 插件可以解决这个问题，详细帮助见 :h surround.txt
 
+
 " -----------------------------------------------------------------------------
 "  < Syntastic 插件配置 >
 " -----------------------------------------------------------------------------
 " 用于保存文件时查检语法
+let g:syntastic_error_symbol='>>'
+let g:syntastic_warning_symbol='>'
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
+let g:syntastic_enable_highlighting=1
+let g:syntastic_python_checkers=['pyflakes'] " 使用pyflakes,速度比pylint快
+let g:syntastic_javascript_checkers = ['jsl', 'jshint']
+let g:syntastic_html_checkers=['tidy', 'jshint']
+" 修改高亮的背景色, 适应主题
+highlight SyntasticErrorSign guifg=white guibg=black
+
+" to see error location list
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_loc_list_height = 5
+function! ToggleErrors()
+    let old_last_winnr = winnr('$')
+    lclose
+    if old_last_winnr == winnr('$')
+        " Nothing was closed, open syntastic error location panel
+        Errors
+    endif
+endfunction
+"nnoremap <Leader>s :call ToggleErrors()<cr>
+" nnoremap <Leader>sn :lnext<cr>
+" nnoremap <Leader>sp :lprevious<cr>
 
 
 " -----------------------------------------------------------------------------
@@ -456,8 +454,8 @@ nmap <F6> :SrcExplToggle<CR>                "打开/闭浏览窗口
 " 相对 TagList 能更好的支持面向对象
 " 常规模式下输入 tb 调用插件，如果有打开 TagList 窗口则先将其关闭
 nmap tb :TlistClose<CR>:TagbarToggle<CR>
-let g:tagbar_width=30                       "设置窗口宽度
-" let g:tagbar_left=1                       "在左侧窗口中显示
+let g:tagbar_width=23                       "设置窗口宽度
+let g:tagbar_right=1                        "在右侧窗口中显示
 
 
 " -----------------------------------------------------------------------------
@@ -465,14 +463,32 @@ let g:tagbar_width=30                       "设置窗口宽度
 " -----------------------------------------------------------------------------
 " 高效地浏览源码, 其功能就像vc中的workpace
 " 那里面列出了当前文件中的所有宏,全局变量, 函数名等
-" 常规模式下输入 tl 调用插件,这里我设置成来F3，如果有打开 Tagbar 窗口则先将其关闭
-nmap <F3> :TagbarClose<CR>:Tlist<CR>
+" 常规模式下输入 tl 调用插件，如果有打开 Tagbar 窗口则先将其关闭
+nmap tl :TagbarClose<CR>:Tlist<CR>
+nmap <F4> :TagbarClose<CR>:Tlist<CR>
 "let Tlist_Auto_Open=1       "当打开vim时自动启用taglist插件
 let Tlist_Show_One_File=1    "只显示当前文件的tag
 let Tlist_Exit_OnlyWindow=1  "如果taglist窗口是最后一个窗口，则退出vim
-let Tlist_Use_Left_Window=1  "在左侧显示taglist窗口
+let Tlist_Use_Right_Window=1  "在右侧显示taglist窗口
 let Tlist_WinWidth=23        "设置taglist窗口的宽度
-let Tlist_File_Fold_Auto_Close=1            "自动折叠
+let Tlist_File_Fold_Auto_Close=0            "自动折叠
+let Tlist_Sort_Type = "order"
+let Tlist_Enable_Fold_Column = 0
+let tlist_php_settings = 'php;c:class;i:interfaces;d:constant;f:function'
+let Tlist_Auto_Highlight_Tag = 1
+let Tlist_Auto_Update = 1
+let Tlist_Close_On_Select = 0
+let Tlist_Compact_Format = 0
+let Tlist_Display_Prototype = 0
+let Tlist_Display_Tag_Scope = 1
+let Tlist_Enable_Fold_Column = 0
+let Tlist_GainFocus_On_ToggleOpen = 1
+let Tlist_Hightlight_Tag_On_BufEnter = 1
+let Tlist_Inc_Winwidth = 0
+let Tlist_Max_Submenu_Items = 1
+let Tlist_Process_File_Always = 0
+let Tlist_Show_Menu = 0
+let Tlist_Use_Horiz_Window = 0
 
 
 "************************* WinManager插件设置 ****************************
@@ -493,6 +509,8 @@ let g:bufExplorerMaxHeight=30
 " 用于分割窗口的最大化与还原
 " 常规模式下按快捷键 <c-w>o 在最大化与还原间切换
 
+
+
 " =============================================================================
 "                          << 以下为常用工具配置 >>
 " =============================================================================
@@ -506,24 +524,12 @@ nmap <F8> :! ctags -R<CR>  " 打开ctages
 "当光标在某个函数调用处时，按ctrl+]，光标便跳转到函数的定义处,再按ctrl+t，光标返回函数调用处
 
 
-" -----------------------------------------------------------------------------
-"  < gvimfullscreen 工具配置 > 请确保已安装了工具
-" -----------------------------------------------------------------------------
-" 用于 Windows Gvim 全屏窗口，可用 F11 切换
-" 全屏后再隐藏菜单栏、工具栏、滚动条效果更好
-if (g:iswindows && g:isGUI)
-    nmap <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
-endif
-
-
-
 " =============================================================================
 "                          << 以下为常用自动命令配置 >>
 " =============================================================================
 
 " 自动切换目录为当前编辑文件所在目录
 au BufRead,BufNewFile,BufEnter * cd %:p:h
-
 " =============================================================================
 "                     << windows 下解决 Quickfix 乱码问题 >>
 " =============================================================================
@@ -552,9 +558,6 @@ au BufRead,BufNewFile,BufEnter * cd %:p:h
 " 秒内，而<Leader>cs是先按"\"键再按"c"又再按"s"键；如要修改"<leader>"键，可以把
 " 下面的设置取消注释，并修改双引号中的键为你想要的，如修改为逗号键。
 let mapleader = ","
-
-
-
 
 
 "******************************* 括号自动补全 *************************************
@@ -600,18 +603,18 @@ endf
 "*********************************** html 初始化模版 ********************************************
 
   function AddTitlehtml()
-	call setline(1,'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">')
-	call setline(2,'<html xmlns="http://www.w3.org/1999/xhtml">')
-	call setline(3,'<head>')
-	call setline(4,'<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />')
-	call setline(5,'<title>无标题文档</title>')
-	call setline(6,'<meta name="keywords" content="网站关键字" />')
-	call setline(7,'<meta name="description" content="网站描述" />')
-	call setline(8,'</head>')
-	call setline(9,'<body>')
-	call setline(10,'')
-	call setline(11,'</body>')
-	call setline(12,'</html>')
+    call setline(1,'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">')
+    call setline(2,'<html xmlns="http://www.w3.org/1999/xhtml">')
+    call setline(3,'<head>')
+    call setline(4,'<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />')
+    call setline(5,'<title></title>')
+    call setline(6,'<meta name="keywords" content="" />')
+    call setline(7,'<meta name="description" content="" />')
+    call setline(8,'</head>')
+    call setline(9,'<body>')
+    call setline(10,'')
+    call setline(11,'</body>')
+    call setline(12,'</html>')
 
   endf
   map html :call AddTitlehtml()<CR>
@@ -622,14 +625,24 @@ endf
 "*********************************** PHP 初始化模版 ********************************************
 
 function AddTitlephp()
-	call setline(1,'<?php')
-	call setline(2,'')
-	call setline(3,'')
-	call setline(4,'')
-	call setline(5,'?>')
+    call setline(1,'<?php')
+    call setline(2,'')
+    call setline(3,'')
+    call setline(4,'')
+    call setline(5,'?>')
 
   endf
   map php :call AddTitlephp()<CR>
 
 "*********************************** end ********************************************************
 
+" 模板。
+"autocmd BufNewFile  model.php    0r ~/.vim/template/model.php
+"autocmd BufNewFile  control.php  0r ~/.vim/template/control.php
+"autocmd BufNewFile  *.html.php   0r ~/.vim/template/html.php
+"autocmd BufNewFile  *.html   0r ~/.vim/template/tpl.html
+
+"source ~/.vim/plugin/php-doc.vim 
+"inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i 
+"nnoremap <C-P> :call PhpDocSingle()<CR> 
+"vnoremap <C-P> :call PhpDocRange()<CR> 

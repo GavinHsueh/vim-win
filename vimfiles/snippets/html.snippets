@@ -106,7 +106,20 @@ snippet html
 	<body>
 	${2}
 	</body>
-	</html>		
+	</html>	
+snippet html5
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>${1:webtitle}</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	</head>
+	<body>
+	${2}
+	</body>
+	</html>
 snippet xhtml
 	<html xmlns="http://www.w3.org/1999/xhtml">
 	${1}
@@ -130,6 +143,8 @@ snippet script
 	</script>${2}
 snippet scriptsrc
 	<script src="${1}.js" type="text/javascript" charset="utf-8"></script>${2}
+snippet jquery
+	<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>${1}
 snippet style
 	<style type="text/css" media="${1:screen}">
 		${2}
@@ -139,8 +154,8 @@ snippet base
 snippet br
 	<br`Close()[1:]`>
 snippet div
-	<div id="${1:name}">
-		${2}
+	<div ${1:id}="${2:name}">
+		${3}
 	</div>
 snippet a
 	<a href="${1}">${2}</a>${3}
@@ -202,9 +217,55 @@ snippet tr
 	</tr>${3}
 snippet td
 	<td>${1}</td>${2}
+snippet th
+	<th>${1}</th>${2}
 snippet textarea
 	<textarea name="${1:Name}" rows="${2:8}" cols="${3:40}">${4}</textarea>${5}
 snippet ,,
 	<{${1}}>${2}
 snippet caption
 	<caption><h2>${1}</h2></caption>${2}
+# ThinkPHP模版标签
+snippet volist
+	<volist name="${1:data}" id="${2:vo}">
+		${3}
+	</volist>
+snippet include
+	<include file="${1}" />${2}
+snippet import
+	<import type='${1:Css.style}' file="${2}" />
+snippet load
+	<load href="${1}" />${2}
+snippet foreach
+	<foreach name="${1:data}" item="${2:vo}">
+	${3}
+	</foreach>
+snippet for
+	<for start="${1}" end="${2}" >
+	</for>
+snippet switch
+	<switch name="变量" >
+	<case value="值1" break="0或1">输出内容1</case>
+	<case value="值2">输出内容2</case>
+	<default />默认情况
+	</switch>
+snippet define
+	<define name="${1:NAME}"value="${2}"/>
+snippet assign
+	<assign name="${1:val}" value="${2}" />
+snippet if
+	<if condition="${1}"> ${2}
+	<elseif condition="${3}"/>${4}
+	<else /> ${5}
+	</if>
+snippet block
+	<block name="${1:NAME}">${2}</block>${3}
+snippet extend
+	<extend name="${1:NAME}" />${2}
+snippet layout
+	<layout name="${1:NAME}" />${2}
+snippet bootstrap
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>${1}

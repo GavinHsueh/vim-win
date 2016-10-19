@@ -1,2 +1,44 @@
-snippet css
-	${1}{${2}}${3}
+snippet init
+	/* 初始化 */
+
+	body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,legend,button
+	form,fieldset,input,textarea,p,blockquote,th,td {
+	padding: 0;
+	margin: 0;
+	}
+
+	/* 酌情修改 */
+	body {
+	background:#fff;color:#333;font-size:12px; margin-top:5px;font-family:”SimSun”,”宋体”,"微软雅黑",”Arial Narrow”;
+	}
+
+	/* 图片等无边框 */
+	img,input {border:0;}
+
+	/* 设置表格的边框被合并为一个单一的边框, 指定分隔边框模型中单元格边界之间的距离为0*/
+	table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	}
+
+	/* 清除列表样式 */
+	ol,ul {list-style: none;}
+
+	/* 标题元素样式清除 
+	h1,h2,h3,h4,h5,h6 {
+	font-weight: normal;
+	font-size: 100%;
+	}
+	*/
+
+	/* 链接样式，颜色可酌情修改 */
+	a {text-decoration:none; color:#333;}
+	a:link {color:#333;}  /* 链接样式 */
+	a:visited {color:#333;} /* 链接访问后样式 */
+	a:hover {color:#60387f;} /* 链接移上时样式 */
+	a:active {color:#60387f;} /* 链接点住不放时样式 */
+
+	/* 清除浮动辅助层 */
+	.clear {clear:both;}
+
+	/* end */

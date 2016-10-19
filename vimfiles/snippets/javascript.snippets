@@ -72,3 +72,19 @@ snippet get
 # Get Element
 snippet gett
 	getElementBy${1:Id}('${2}')${3}
+snippet jq
+	$(function(){
+		$("${1:name}")${2}
+	})
+snippet bind
+	$("${1:name}").bind("${2}",function(){
+		${3}
+	})
+snippet attr
+	$("${1:name}").attr("${2:name}","${3:value}")
+snippet attrs
+	$("${1:name}").attr({"${2:name}":"${3:value}","${4:name}":"${5:value}"})
+snippet css
+	$("${1:name}").css("${2:name}","${3:value}")
+snippet csss
+	$("${1:name}").css({"${2:name}":"${3:value}","${4:name}":"${5:value}"})
