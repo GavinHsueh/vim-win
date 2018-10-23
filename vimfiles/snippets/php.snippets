@@ -1,9 +1,6 @@
+# PHP Set
 snippet php
-	<?php
-
-	${1}
-
-	?>
+	<?php ${1}?>
 snippet echo
 	echo "${1:string}";${2}
 snippet utf-8
@@ -228,6 +225,11 @@ snippet fun
 	{	
 		${4}
 	}
+snippet function
+	function ${1:FunctionName}(${2})
+	{	
+		${3}
+	}
 # $... = array (...)
 snippet array
 	$${1:arrayName} = array('${2}' => ${3});${4}
@@ -279,11 +281,11 @@ snippet andWhere
 snippet orWhere
 	orWhere('${1:who}')->${2}
 snippet eq
-	eq('${1:how}')->${2}
+	eq(${1:how})->${2}
 snippet gt
-	gt('${1:how}')->${2}
+	gt(${1:how})->${2}
 snippet lt
-	lt('${1:how}')->${2}
+	lt(${1:how})->${2}
 snippet fetch
 	fetch();${1}
 snippet fetchAll
@@ -293,11 +295,11 @@ snippet orderBy
 snippet limit
 	limit('${1}')->${2}
 snippet insert
-	$this->dao->insert('${1:tableName}')->data('$${2:objName}')->exec();${3}
+	$this->dao->insert('${1:tableName}')->data($${2:objName})->exec();${3}
 snippet delete
 	$this->dao->delete()->from('${1:tableName}')->where('${2:who}')->eq('${3:how}')->exec();${4}
 snippet update
-	$this->dao->update('${1:tableName}')->data('$${2:objName}')->where('${3:who}')->eq('${4:how}')->exec();${5}
+	$this->dao->update('${1:tableName}')->data($${2:objName})->where('${3:who}')->eq('${4:how}')->exec();${5}
 snippet query
 	$this->dao->query('${1:$sql}');
 
@@ -310,11 +312,13 @@ snippet html::icon
 snippet html::rss
 	html::rss(${1:$url},${2:$title});
 snippet html::a
-	html::a(${1:$href},${2:$title},${3:$target},${4:$misc});
+	html::a(${1:$href}, ${2:$title}, ${3:$target},${4:$attr});
 snippet html::mailto
 	html::mailto(${1:$mail},${2:$title});
 snippet html::select
 	html::select(${1:$name},${2:$options},${3:$selected},${4:$attr});
+snippet html::selectGroup
+	html::selectGroup(${1:$name},${2:$group},${3:$selected},${4:$attr});
 snippet html::radio
 	html::radio(${1:$name},${2:$options},${3:$selected},${4:$attr});
 snippet html::checkbox
@@ -363,3 +367,13 @@ snippet js::exportConfigVars
 	js::exportConfigVars();
 snippet js::script
 	js::execute(${1:$code});
+
+# 字符串处理函数
+snippet strpos
+	strpos(${1:$string}, ${2:$str})${3}
+snippet substr
+	substr(${1:$string}, ${2:$start}, ${3:$length})${4}
+snippet str_replace
+	str_replace(${1:$oldstr}, ${2:$newstr}, ${3:$string})${4}
+snippet substr_replace
+	substr_replace(${1:$string}, ${2:$newstr}, ${3:$start}, ${4:[length]})${5}

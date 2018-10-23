@@ -2,19 +2,19 @@
 "F1 : ÏÔÊ¾°ïÖú
 "F2 : ÏÔÒş²Ëµ¥¹¤¾ßÀ¸
 "F3 : ÏÔÒşnerdtreeÎÄµµÄ¿Â¼
-"F4 : ÏÔÒştagbar²å¼ş
+"F4 : 
 "F5 : ´ò¿ªeasygrep²éÑ¯¹¤¾ß
-"F6 : ¿ª¹ØSrcExpl ²å¼ş
-"F7 : ÏÔÒşMiniBufExplorer´°¿Ú
-"F8 : ´ò¿ªctages£¨³ÌĞò±»¸Ä¶¯Ê±£¬ĞëÔËĞĞÒ»´Î£¬ctages²å¼ş²Å¿ÉÓĞĞ§)
+"F6 : 
+"F7 : 
+"F8 : ´ò¿ªctages,Éú³É¸üĞÂtagsÎÄ¼ş£¨³ÌĞò±»¸Ä¶¯Ê±£¬ĞëÔËĞĞÒ»´Î£¬ctages²å¼ş²Å¿ÉÓĞĞ§)
 "F9 :
-"F10 : ¼¤»î/È¡Ïû pasteÄ£Ê½
-"F11 : windowsÏÂgvimÈ«ÆÁÇĞ»»
+"F10 : 
+"F11 : 
 "F12 : µ±Ç°´°¿Ú±£´æ²¢ÍË³ö
 "Ctrl+N : ĞÂ½¨±êÇ©
 "ctrl+]: ¹â±ê±ãÌø×ªµ½º¯ÊıµÄ¶¨Òå´¦
 "ctrl+t: ¹â±ê·µ»Øº¯Êıµ÷ÓÃ´¦
-"<C-Tab>: ÇĞ»»¸÷¸ö±êÇ©
+"<C-Tab>: ÇĞ»»VIM¸÷¸ö±êÇ©
 "W+M : ´ò¿ª/¹Ø±ÕWinManager²å¼ş£¨ÎÄµµÄ¿Â¼ºÍtaglist×éºÏ´°¿Ú£©
 "t+b : ÏÔÒştagbar²å¼ş
 "t+l : ÏÔÒştaglist²å¼ş
@@ -23,10 +23,10 @@
 "ol : ×óÓÒ×İÏò²é¿´ÒÑ´ò¿ªµÄÎÄ¼şÁĞ±í
 "ul : ÉÏÏÂºáÏò²é¿´ÒÑ´ò¿ªµÄÎÄ¼şÁĞ±í
 "Ctrl+e : emmet²å¼ş£¬¿ìËÙĞ´HTML´úÂë
-"line : ¿ªÆô/¹Ø±Õ¶ÔÆëÏß
+":Line : ¿ªÆô/¹Ø±Õ¶ÔÆëÏß
 ",r : mark²å¼ş£¬±ê¼Ç¼ÓÁÁ²»Í¬±êÇ©
 " -  : ¿ª¹ØÕÛµş
-"<c-w+o> : ¶à´°¿ÚÊ±½«µ±Ç°´°¿Ú×î´ó»¯
+":Vip : ¶à´°¿ÚÊ±½«µ±Ç°´°¿Ú×î´ó»¯
 "m+×ÖÄ¸ : ÉèÖÃÒ»¸ö±ê¼Ç(a-z)
 "`+×ÖÄ¸ : Ìø×ªµ½Ö¸¶¨±ê¼Ç´¦
 "**************************** end ********************************
@@ -57,45 +57,6 @@ endif
 
 
 " =============================================================================
-"                          << ÒÔÏÂÎªÈí¼şÄ¬ÈÏÅäÖÃ >>
-" =============================================================================
-
-" -----------------------------------------------------------------------------
-"  < Windows Gvim Ä¬ÈÏÅäÖÃ> ×öÁËÒ»µãĞŞ¸Ä
-" -----------------------------------------------------------------------------
-if (g:iswindows && g:isGUI)
-    source $VIMRUNTIME/vimrc_example.vim
-    source $VIMRUNTIME/mswin.vim
-    behave mswin
-    set diffexpr=MyDiff()
-
-    function MyDiff()
-        let opt = '-a --binary '
-        if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-        if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-        let arg1 = v:fname_in
-        if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-        let arg2 = v:fname_new
-        if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-        let arg3 = v:fname_out
-        if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-        let eq = ''
-        if $VIMRUNTIME =~ ' '
-            if &sh =~ '\<cmd'
-                let cmd = '""' . $VIMRUNTIME . '\diff"'
-                let eq = '"'
-            else
-                let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-            endif
-        else
-            let cmd = $VIMRUNTIME . '\diff'
-        endif
-        silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-    endfunction
-endif
-
-
-" =============================================================================
 "                          << ÒÔÏÂÎªÓÃ»§×Ô¶¨ÒåÅäÖÃ >>
 " =============================================================================
 
@@ -114,7 +75,6 @@ set fileencodings=utf-8                               " ÉèÖÃÖ§³Ö´ò¿ªµÄÎÄ¼şµÄ±àÂë
 " -----------------------------------------------------------------------------
 set guifont=Consolas:h12
 "set guifont=YaHei_Consolas_Hybrid\ 10                " ÉèÖÃ×ÖÌå:×ÖºÅ£¨×ÖÌåÃû³Æ¿Õ¸ñÓÃÏÂ»®Ïß´úÌæ£©
-
 
 " -----------------------------------------------------------------------------
 "  < ÎÄ¼ş¸ñÊ½£¬Ä¬ÈÏ ffs=dos,unix >
@@ -138,6 +98,7 @@ autocmd FileType java,php setl shiftwidth=4
 autocmd FileType java,php setl tabstop=4
 autocmd FileType html,python,vim,javascript setlocal shiftwidth=2
 autocmd FileType html,python,vim,javascript setlocal tabstop=2
+autocmd FileType dos setlocal tabstop=2
 set smarttab                                          " Ö¸¶¨°´Ò»´Îbackspace¾ÍÉ¾³ıshiftwidth¿í¶È
 set backspace=indent,eol,start                                  " ²»Éè¶¨ÔÚ²åÈë×´Ì¬ÎŞ·¨ÓÃÍË¸ñ¼üºÍ Delete ¼üÉ¾³ı»Ø³µ·û
 set showmatch                                                     " ¸ßÁÁÏÖÊµÆ¥ÅäµÄÀ¨ºÅ 
@@ -183,18 +144,38 @@ let php_folding=0                                     " ´ò¿ª×Ô¶¯ÕÛµşµÄ¹¦ÄÜ¡£
 " -----------------------------------------------------------------------------
 syntax enable
 syntax on                                                         " ×Ô¶¯Óï·¨¸ßÁÁ
-:colo torte                                                       " ÅäÉ«·½°¸
+:colo molokai                                                       " ÅäÉ«·½°¸
 set number                                            " ÏÔÊ¾ĞĞºÅ
 set laststatus=2                                      " ÆôÓÃ×´Ì¬À¸ĞÅÏ¢
 set statusline=\ %F%m%r%h%w%=\ [%{&ff}]\ [%Y]\ [%{&fileencoding}]\ [%04l,%04v][%p%%]\ [LEN=%L]
 set cmdheight=1                                       " ÉèÖÃÃüÁîĞĞµÄ¸ß¶È£¬Ä¬ÈÏÎª1
 set cursorline                                        " Í»³öÏÔÊ¾µ±Ç°ĞĞ
 set nowrap                                            " ÉèÖÃ²»×Ô¶¯»»ĞĞ
+autocmd BufNewFile,BufRead *.txt set filetype=txt
+autocmd BufNewFile,BufRead *.doc set filetype=doc
+autocmd FileType txt    set wrap
+autocmd FileType doc   set wrap
 set shortmess=atI                                     " È¥µô»¶Ó­½çÃæ
 set helplang=cn                                       " ÖĞÎÄ°ïÖú
 set ruler                                                         " ´ò¿ª×´Ì¬À¸±ê³ß
 set magic                                                         " ÉèÖÃÄ§Êõ
 set completeopt=longest,menu                                    " ¹ØµôÖÇÄÜ²¹È«Ê±µÄÔ¤ÀÀ´°¿Ú
+
+
+" Ê¹×´Ì¬ĞĞ¸ù¾İ×´Ì¬µÄ²»Í¬£¬ÏÔÊ¾²»Í¬µÄÑÕÉ«¡£
+function! InsertStatuslineColor(mode)
+if a:mode == 'i'
+  hi statusline guibg=white
+elseif a:mode == 'r'
+  hi statusline guibg=white
+else
+  hi statusline guibg=white
+endif
+endfunction
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi statusline guibg=white guifg=blue
+hi statusline guibg=white
+
 
 " ÉèÖÃ gVim ´°¿Ú³õÊ¼Î»ÖÃ¼°´óĞ¡
 if g:isGUI
@@ -293,15 +274,11 @@ Bundle 'Yggdroot/indentLine'
 Bundle 'Mark--Karkat'
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'scrooloose/nerdtree'
-Bundle 'wesleyche/SrcExpl'
 Bundle 'tpope/vim-surround'
-Bundle 'repeat.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
 Bundle 'taglist.vim'
 Bundle 'ZoomWin'
-Bundle 'rking/ag.vim'
-Bundle 'ggreer/the_silver_searcher'
 Bundle 'EasyGrep'
 
 
@@ -346,7 +323,8 @@ let g:user_emmet_expandabbr_key = '<c-e>'
 " ÓÃÓÚÏÔÊ¾¶ÔÆëÏß£¬Óë indent_guides ÔÚÏÔÊ¾·½Ê½ÉÏ²»Í¬£¬¸ù¾İ×Ô¼ºÏ²ºÃÑ¡ÔñÁË
 " ÔÚÖÕ¶ËÉÏ»áÓĞÆÁÄ»Ë¢ĞÂµÄÎÊÌâ£¬Õâ¸öÎÊÌâÄÜ½â¾öÓĞ¸üºÃÁË,½öÖ§³ÖVIM7.3ÒÔÉÏ°æ±¾
 " ¿ªÆô/¹Ø±Õ¶ÔÆëÏß
-nmap line :IndentLinesToggle<CR>
+"nmap line :IndentLinesToggle<CR>
+:command Line :IndentLinesToggle
 
 " ÉèÖÃGvimµÄ¶ÔÆëÏßÑùÊ½
 if g:isGUI
@@ -399,14 +377,6 @@ let NERDTreeDirArrows=0                     "nerdtree²å¼şÄ¿Â¼¼ıÍ· 1 ÏÔÊ¾¼ıÍ·  0´
 " ÏÀÓĞÊ²Ã´ÆäËü½â¾ö·½·¨Ï£Íû²»Òª±£ÁôÑ½
 filetype plugin on
 "let snippets_dir = $VIMRUNTIME.'\..\vimfiles\snippets\'
-
-
-" -----------------------------------------------------------------------------
-"  < SrcExpl ²å¼şÅäÖÃ >
-" -----------------------------------------------------------------------------
-" ÔöÇ¿Ô´´úÂëä¯ÀÀ£¬Æä¹¦ÄÜ¾ÍÏñWindowsÖĞµÄ"Source Insight"
-nmap <F6> :SrcExplToggle<CR>                "´ò¿ª/±Õä¯ÀÀ´°¿Ú
-
 
 
 " -----------------------------------------------------------------------------
@@ -465,7 +435,6 @@ let g:tagbar_right=1                        "ÔÚÓÒ²à´°¿ÚÖĞÏÔÊ¾
 " ÄÇÀïÃæÁĞ³öÁËµ±Ç°ÎÄ¼şÖĞµÄËùÓĞºê,È«¾Ö±äÁ¿, º¯ÊıÃûµÈ
 " ³£¹æÄ£Ê½ÏÂÊäÈë tl µ÷ÓÃ²å¼ş£¬Èç¹ûÓĞ´ò¿ª Tagbar ´°¿ÚÔòÏÈ½«Æä¹Ø±Õ
 nmap tl :TagbarClose<CR>:Tlist<CR>
-nmap <F4> :TagbarClose<CR>:Tlist<CR>
 "let Tlist_Auto_Open=1       "µ±´ò¿ªvimÊ±×Ô¶¯ÆôÓÃtaglist²å¼ş
 let Tlist_Show_One_File=1    "Ö»ÏÔÊ¾µ±Ç°ÎÄ¼şµÄtag
 let Tlist_Exit_OnlyWindow=1  "Èç¹ûtaglist´°¿ÚÊÇ×îºóÒ»¸ö´°¿Ú£¬ÔòÍË³övim
@@ -507,8 +476,10 @@ let g:bufExplorerMaxHeight=30
 "  < ZoomWin ²å¼şÅäÖÃ >
 " -----------------------------------------------------------------------------
 " ÓÃÓÚ·Ö¸î´°¿ÚµÄ×î´ó»¯Óë»¹Ô­
-" ³£¹æÄ£Ê½ÏÂ°´¿ì½İ¼ü <c-w>o ÔÚ×î´ó»¯Óë»¹Ô­¼äÇĞ»»
-
+" ³£¹æÄ£Ê½ÏÂ°´¿ì½İ¼ü vip ÔÚ×î´ó»¯Óë»¹Ô­¼äÇĞ»»
+" nmap vip :ZoomWin<CR>
+:command Vip :ZoomWin
+nnoremap <leader>vip :ZoomWin<CR>
 
 
 " =============================================================================
@@ -559,15 +530,31 @@ au BufRead,BufNewFile,BufEnter * cd %:p:h
 " ÏÂÃæµÄÉèÖÃÈ¡Ïû×¢ÊÍ£¬²¢ĞŞ¸ÄË«ÒıºÅÖĞµÄ¼üÎªÄãÏëÒªµÄ£¬ÈçĞŞ¸ÄÎª¶ººÅ¼ü¡£
 let mapleader = ","
 
+"*****************************½â¾öPHP/html/CSS/JS»ì±àËõ½øÎÊÌâ**************************
+nnoremap <leader>html :set filetype=html<CR>
+nnoremap <leader>php :set filetype=php<CR>
+nnoremap <leader>css :set filetype=css<CR>
+nnoremap <leader>js :set filetype=javascript<CR>
+"**************************************************************************************
+
+"**********************************×Ô¶¨Òå×ÖÄ¸×éºÏ¿ì½İ¼üÉèÖÃ**********************************
+nnoremap <leader>vip :ZoomWin<CR>
+nnoremap <leader>line :IndentLinesToggle<CR>
+nnoremap <leader>ul :BufExplorerHorizontalSplit<CR>
+nnoremap <leader>ol :BufExplorerVerticalSplit<CR>
+nnoremap <leader>wm :WMToggle<CR>
+nnoremap <leader>tl :TagbarClose<CR>:Tlist<CR>
+nnoremap <leader>tb :TlistClose<CR>:TagbarToggle<CR>
+nnoremap <leader>nt :NERDTreeToggle<CR>
 
 "******************************* À¨ºÅ×Ô¶¯²¹È« *************************************
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
-inoremap { {<CR>}<Esc>O
+inoremap { {}<Esc>i
 "autocmd Syntax html,vim inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
 inoremap ) <c-r>=ClosePair(')')<CR>
 inoremap ] <c-r>=ClosePair(']')<CR>
-inoremap } <c-r>=CloseBracket()<CR>
+inoremap } <c-r>=ClosePair('}')<CR>
 inoremap " <c-r>=QuoteDelim('"')<CR>
 inoremap ' <c-r>=QuoteDelim("'")<CR>
 function ClosePair(char)
@@ -617,24 +604,10 @@ endf
     call setline(12,'</html>')
 
   endf
-  map html :call AddTitlehtml()<CR>
-
+:command Html :call AddTitlehtml()
 "*********************************** end *******************************************************
 
 
-"*********************************** PHP ³õÊ¼»¯Ä£°æ ********************************************
-
-function AddTitlephp()
-    call setline(1,'<?php')
-    call setline(2,'')
-    call setline(3,'')
-    call setline(4,'')
-    call setline(5,'?>')
-
-  endf
-  map php :call AddTitlephp()<CR>
-
-"*********************************** end ********************************************************
 
 " Ä£°å¡£
 "autocmd BufNewFile  model.php    0r ~/.vim/template/model.php
@@ -642,6 +615,7 @@ function AddTitlephp()
 "autocmd BufNewFile  *.html.php   0r ~/.vim/template/html.php
 "autocmd BufNewFile  *.html   0r ~/.vim/template/tpl.html
 
+ 
 "source ~/.vim/plugin/php-doc.vim 
 "inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i 
 "nnoremap <C-P> :call PhpDocSingle()<CR> 
