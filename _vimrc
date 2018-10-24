@@ -150,6 +150,10 @@ set statusline=\ %F%m%r%h%w%=\ [%{&ff}]\ [%Y]\ [%{&fileencoding}]\ [%04l,%04v][%
 set cmdheight=1                                       " 设置命令行的高度，默认为1
 set cursorline                                        " 突出显示当前行
 set nowrap                                            " 设置不自动换行
+autocmd BufNewFile,BufRead *.txt set filetype=txt
+autocmd BufNewFile,BufRead *.doc set filetype=doc
+autocmd FileType txt    set wrap
+autocmd FileType doc   set wrap
 set shortmess=atI                                     " 去掉欢迎界面
 set helplang=cn                                       " 中文帮助
 set ruler                                                         " 打开状态栏标尺
