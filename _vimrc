@@ -226,6 +226,9 @@ set t_te=
 "autocmd BufNewFile,BufRead *.book set filetype=vo_base
 "imap <c-f>  <c-x><c-o>
 
+" 重命名文件名
+:command! -nargs=1 Rename let tpname = expand('%:t') | saveas <args> | edit <args> | call delete(expand(tpname))
+
 " -----------------------------------------------------------------------------
 "  < 快捷键设置 >
 " -----------------------------------------------------------------------------
