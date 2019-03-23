@@ -1,117 +1,9 @@
-# Some useful Unicode entities
-# Non-Breaking Space
-snippet nbsp
-	&nbsp;
-# ←
-snippet left
-	&#x2190;
-# →
-snippet right
-	&#x2192;
-# ↑
-snippet up
-	&#x2191;
-# ↓
-snippet down
-	&#x2193;
-# ↩
-snippet return
-	&#x21A9;
-# ⇤
-snippet backtab
-	&#x21E4;
-# ⇥
-snippet tab
-	&#x21E5;
-# ⇧
-snippet shift
-	&#x21E7;
-# ⌃
-snippet control
-	&#x2303;
-# ⌅
-snippet enter
-	&#x2305;
-# ⌘
-snippet command
-	&#x2318;
-# ⌥
-
-# ⌦
-snippet delete
-	&#x2326;
-# ⌫
-snippet backspace
-	&#x232B;
-# ⎋
-snippet escape
-	&#x238B;
 # Generic Doctype
-snippet doctype HTML 4.01 Strict
-	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN""
-	"http://www.w3.org/TR/html4/strict.dtd">
-snippet doctype HTML 4.01 Transitional
-	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""
-	"http://www.w3.org/TR/html4/loose.dtd">
-snippet doctype HTML 5
-	<!DOCTYPE HTML>
-snippet doctype XHTML 1.0 Frameset
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-snippet doctype XHTML 1.0 Strict
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-snippet doctype XHTML 1.0 Transitional
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-snippet doctype XHTML 1.1
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-# HTML Doctype 4.01 Strict
-snippet docts
-	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN""
-	"http://www.w3.org/TR/html4/strict.dtd">
-# HTML Doctype 4.01 Transitional
-snippet doct
-	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""
-	"http://www.w3.org/TR/html4/loose.dtd">
-# HTML Doctype 5
-snippet doct5
-	<!DOCTYPE HTML>
-# XHTML Doctype 1.0 Frameset
-snippet docxf
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
-# XHTML Doctype 1.0 Strict
-snippet docxs
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-# XHTML Doctype 1.0 Transitional
-snippet docxt
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-# XHTML Doctype 1.1
-snippet docx
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 snippet html
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-	<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>${1:webtitle}</title>
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
-	</head>
-	<body>
-	${2}
-	</body>
-	</html>	
-snippet html5
 	<!DOCTYPE html>
 	<html>
 	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset=utf-8" />
 	<title>${1:webtitle}</title>
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -131,7 +23,6 @@ snippet body
 snippet head
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"`Close()`>
-
 		<title>${1:`substitute(Filename('', 'Page Title'), '^.', '\u&', '')`}</title>
 		${2}
 	</head>
@@ -152,61 +43,36 @@ snippet style
 snippet base
 	<base href="${1}" target="${2}"`Close()`>
 snippet br
-	<br`Close()[1:]`>
+	<br/>
 snippet div
 	<div ${1:id}="${2:name}">
 		${3}
 	</div>
 snippet a
 	<a href="${1}">${2}</a>${3}
-# Embed QT Movie
-snippet movie
-	<object width="$2" height="$3" classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"
-	 codebase="http://www.apple.com/qtactivex/qtplugin.cab">
-		<param name="src" value="$1"`Close()`>
-		<param name="controller" value="$4"`Close()`>
-		<param name="autoplay" value="$5"`Close()`>
-		<embed src="${1:movie.mov}"
-			width="${2:320}" height="${3:240}"
-			controller="${4:true}" autoplay="${5:true}"
-			scale="tofit" cache="true"
-			pluginspage="http://www.apple.com/quicktime/download/"
-		`Close()[1:]`>
-	</object>${6}
-snippet fieldset
-	<fieldset id="$1">
-		<legend>${1:name}</legend>
-
-		${3}
-	</fieldset>
 snippet form
 	<form action="${1}" method="${2:post}">
 		${3}
-	   <p><input type="submit" value="?ύ"></p>
+	   <p><input type="submit" value="submit"></p>
 	</form>
+snippet p
+	<p>${1}</p>
 snippet h1
 	<h1>${1}</h1>
 snippet h2
 	<h2>${1}</h2>
+snippet h3
+	<h3>${1}</h3>
 snippet input
-	<input type="${1:text/submit/hidden/button/password} name="${2:some_name}" value="${3}"`Close()`>${4}
-snippet label
-	<label for="${2:$1}">${1:name}</label><input type="${3:text/submit/hidden/button}" name="${4:$2}" value="${5}" id="${6:$2}"`Close()`>${7}
+	<input type="${1:text/submit/hidden/button/password}" name="${2:some_name}" value="${3}" placeholder="${4}" />${5}
 snippet link
 	<link rel="stylesheet" href="${1:/css/master.css}" type="text/css" charset="utf-8">${2}
 snippet mailto
 	<a href="mailto:${1:joe@example.com}?subject=${2:feedback}">${3:email me}</a>
 snippet meta
-	<meta name="${1:name}" content="${2:content}"`Close()`>${3}
+	<meta name="${1:name}" content="${2:content}"/>${3}
 snippet option
 	<option value="${1:option}">${2:$1}</option>${3}
-snippet opt
-	<option>${1:option}</option>${2}
-snippet select
-	<select name="${1:some_name}" id="${2:$1}">
-		<option value="${3:option}">${4:$3}</option>
-		${5}
-	</select>
 snippet table
 	<table border="${1:0}" width="${2}" height="${3}">
 		${4}
@@ -221,51 +87,233 @@ snippet th
 	<th>${1}</th>${2}
 snippet textarea
 	<textarea name="${1:Name}" rows="${2:8}" cols="${3:40}">${4}</textarea>${5}
+
+# ZUI框架
+snippet zui:load
+	<!-- ZUI 标准版压缩后的 CSS 文件 -->
+	<link rel="stylesheet" href="//cdn.bootcss.com/zui/1.5.0/css/zui.min.css">
+	<!-- ZUI Javascript 依赖 jQuery -->
+	<script src="//cdn.bootcss.com/zui/1.5.0/lib/jquery/jquery.js"></script>
+	<!-- ZUI 标准版压缩后的 JavaScript 文件 -->
+	<script src="//cdn.bootcss.com/zui/1.5.0/js/zui.min.js"></script>
+snippet zui:container
+	<div class="container">
+	  ${1}
+	</div>
+snippet zui:container-fluid
+	<div class="container-fluid">
+	  ${1}
+	</div>
+snippet zui:icon
+	<i class="icon icon-${1}"></i>${2}
+snippet zui:button
+	<button class="btn btn-${1}">${2}</button>${3}
+snippet zui:button:a
+	<a class="btn btn-${1:primary}" href="${2:link}">${3}</a>
+snippet zui:input
+	<input type="${1:text}" name="${2}"class="form-control" placeholder="${3:defaultView}"/>${4}
+snippet zui:textarea
+	<textarea name="${1}" class="form-control" rows="${2}" placeholder="defaultView"></textarea>${3}
+snippet zui:select
+	<select name="${1}" class="form-control">
+		<option value="${2}">${3}</option>
+	</select>
+snippet zui:checkbox
+	<div class="checkbox">
+		<label>
+			<input type="checkbox" name="${1}" value="${2}">${3}
+		</label>
+	</div>
+snippet zui:radio
+	<div class="radio">
+		<label>
+			<input type="radio" name="${1}" value="${2}">${3}
+		</label>
+	</div>
+snippet zui:checkbox-inline
+	<label class="checkbox-inline">
+		<input type="checkbox" name="${1}" value="${2}">${3}
+	</label>
+snippet zui:radio-inline
+	<label class="radio-inline">
+		<input type="radio" name="${1}" value="${2}">${3}
+	</label>
+snippet zui:breadcrumb
+	<ol class="breadcrumb">
+		<li><a href="${1}">${2}</a></li>
+		<li class="active"></li>
+	</ol>
+snippet zui:alert-dismissable
+	<div class="alert alert-${1:warning} alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="icon-remove"></i></button>
+		<p>${2}</p>
+	</div>
+snippet zui:input-group
+	<div class="input-group">
+		<span class="input-group-addon">${1}</span>
+		<input type="${2:text}" name="${3}" class="form-control" placeholder="${4}" />
+	</div>
+snippet zui:list-group
+	<div class="list-group">
+		<a href="${2:#}" class="list-group-item">${1}</a>
+	</div>
+snippet zui:nav
+	<ul class="nav nav-${1:primary/secondary/tabs/pills/} ${2:nav-stacked} ${3:nav-justified}">
+		<li class="active"><a href="#"></a></li>
+		<li><a href="#"></a></li>
+	</ul>
+snippet zui:navbar
+	<nav class="navbar navbar-${1:default/inverse}" role="navigation">
+		<div class="container">
+			<div class="collapse navbar-collapse">
+			${2}
+			</div>
+		</div>
+	</nav>
+snippet zui:menu
+	<nav class="menu" data-toggle="menu" style="width:${1:200px}">
+		<ul class="nav nav-primary">
+			<li><a href="#"></a></li>
+			<li class="nav-parent">
+				<a href="#"></a>
+				<ul class="nav">
+					<li><a href="#"></a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+
+# ZentaoPHP框架:
 snippet ,,
-	<{${1}}>${2}
-snippet caption
-	<caption><h2>${1}</h2></caption>${2}
-# ThinkPHP模版标签
-snippet volist
-	<volist name="${1:data}" id="${2:vo}">
-		${3}
-	</volist>
-snippet include
-	<include file="${1}" />${2}
-snippet import
-	<import type='${1:Css.style}' file="${2}" />
-snippet load
-	<load href="${1}" />${2}
-snippet foreach
-	<foreach name="${1:data}" item="${2:vo}">
-	${3}
-	</foreach>
-snippet for
-	<for start="${1}" end="${2}" >
-	</for>
-snippet switch
-	<switch name="变量" >
-	<case value="值1" break="0或1">输出内容1</case>
-	<case value="值2">输出内容2</case>
-	<default />默认情况
-	</switch>
-snippet define
-	<define name="${1:NAME}"value="${2}"/>
+	$this->view->${1:varName}
+snippet ..
+	->${1}
 snippet assign
-	<assign name="${1:val}" value="${2}" />
-snippet if
-	<if condition="${1}"> ${2}
-	<elseif condition="${3}"/>${4}
-	<else /> ${5}
-	</if>
-snippet block
-	<block name="${1:NAME}">${2}</block>${3}
-snippet extend
-	<extend name="${1:NAME}" />${2}
-snippet layout
-	<layout name="${1:NAME}" />${2}
-snippet bootstrap
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-	<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>${1}
+	$this->assign("${1:varName}",${2:varValue});
+snippet createLink
+	$this->createLink("${1:moduleName}","${2:funName}","${3:key1=value1&key2=value2}")${4}
+snippet inlink
+	$this->inlink("${1:funName}","${2:key1=value1&key2=value2}")${3}
+snippet dao
+	$this->dao->${1}
+snippet post
+	$this->post->${1}
+snippet get
+	$this->get->${1}
+snippet server
+	$this->server->${1}
+snippet session
+	$this->session->${1}
+snippet cookie
+	$this->cookie->${1}
+snippet global
+	$this->global->${1}
+snippet select
+	$this->dao->select('${1:*}')->from('${2:tableName}')->${3}
+snippet where
+	where('${1:who}')->${2}
+snippet andWhere
+	andWhere('${1:who}')->${2}
+snippet orWhere
+	orWhere('${1:who}')->${2}
+snippet eq
+	eq(${1:how})->${2}
+snippet gt
+	gt(${1:how})->${2}
+snippet lt
+	lt(${1:how})->${2}
+snippet fetch
+	fetch();${1}
+snippet fetchAll
+	fetchAll();${1}
+snippet orderBy
+	orderBy('${1}')->${2}
+snippet limit
+	limit('${1}')->${2}
+snippet insert
+	$this->dao->insert('${1:tableName}')->data($${2:objName})->exec();${3}
+snippet delete
+	$this->dao->delete()->from('${1:tableName}')->where('${2:who}')->eq('${3:how}')->exec();${4}
+snippet update
+	$this->dao->update('${1:tableName}')->data($${2:objName})->where('${3:who}')->eq('${4:how}')->exec();${5}
+snippet query
+	$this->dao->query('${1:$sql}');
+
+snippet html::title
+	html::title(${1:$title});
+snippet html::meta
+	html::meta(${1:$name},${2:$value});
+snippet html::favicon
+	html::favicon(${1:$url});
+snippet html::icon
+	html::icon(${1:$name}, ${2:$class=''});
+snippet html::rss
+	html::rss(${1:$url},${2:$title});
+snippet html::a
+	html::a(${1:$href}, ${2:$title}, ${3:$attr});
+snippet html::mailto
+	html::mailto(${1:$mail},${2:$title});
+snippet html::select
+	html::select(${1:$name},${2:$options},${3:$selected},${4:$attr});
+snippet html::selectGroup
+	html::selectGroup(${1:$name},${2:$group},${3:$selected},${4:$attr});
+snippet html::radio
+	html::radio(${1:$name},${2:$options},${3:$checked},${4:$attr});
+snippet html::checkbox
+	html::checkbox(${1:$name},${2:$options},${3:$checked},${4:$attr});
+snippet html::text
+	html::input(${1:$name},${2:$value},${3:$attr});
+snippet html::hidden
+	html::hidden(${1:$name},${2:$value},${3:$attr});
+snippet html::password
+	html::password(${1:$name},${2:$value},${3:$attr});
+snippet html::textarea
+	html::textarea(${1:$name},${2:$value},${3:$attr});
+snippet html::file
+	html::file(${1:$name},${2:$attr});
+snippet html::img
+	html::image(${1:$src},${2:$attr});
+snippet html::submit
+	html::submitButton(${1:$label},${2:'btn btn-primary'},${3:$attr});
+snippet html::reset
+	html::resetButton(${1:$label},${2:class=''});
+snippet html::back
+	html::backButton(${1:$label},${2:$attr},${3:class=''});
+snippet html::button
+	html::commonButton(${1:$label}, ${2:'btn btn-default'}, ${3:$attr});
+snippet html::linkButton
+	html::linkButton(${1:$label},${2:$link},${3:'btn btn-default'},${4:$attr});
+snippet html::closeButton
+	html::closeButton();
+snippet html::selectButton
+	html::selectButton(${1:$scope=''});
+
+snippet css::import
+	css::import(${1:$url},${2:$version});
+snippet css::style
+	css::internal(${1:$css});
+
+snippet js::import
+	js::import(${1:$url});
+snippet js::start
+	js::start();
+snippet js::end
+	js::end();
+snippet js::alert
+	js::alert(${1:$message});
+snippet js::error
+	js::error(${1:$message});
+snippet js::confirm
+	js::confirm(${1:$message},${2:$okURL},${3:$cancelURL});
+snippet js::locate
+	js::locate(${1:$url});
+snippet js::closeWindow
+	js::closeWindow();
+snippet js::refresh
+	js::refresh(${1:$url},${2:$target='self'},${3:$time=3000});
+snippet js::reload
+	js::reload(${1:$window});
+snippet js::exportConfigVars
+	js::exportConfigVars();
+snippet js::execute
+	js::execute(${1:$code});
